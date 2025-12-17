@@ -1,7 +1,7 @@
 import Header from './components/Header.js';
 import ReviewList from './components/ReviewList.js';
-import ReviewListItem from './components/ReviewListItem.js';
-import StarRating from './components/StarRating.js';
+// import ReviewListItem from './components/ReviewListItem.js';
+// import StarRating from './components/StarRating.js';
 import WriteReview from './components/WriteReview.js';
 import { useState } from 'react';
 import './App.css';
@@ -38,7 +38,6 @@ const mockReviews = [
 
 function App() {
   const [reviews, setReviews] = useState(mockReviews);
-
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [editingReview, setEditingReview] = useState(null);
   const [formData, setFormData] = useState({
@@ -48,11 +47,13 @@ function App() {
     image: ''
   });
 
+
   const openCreatePopup = () => {
     setEditingReview(null);
     setFormData({ title: '', content: '', rating: 0, image: '' });
     setIsPopupOpen(true);
   };
+
 
   const openEditPopup = (review) => {
     setEditingReview(review);
@@ -65,11 +66,13 @@ function App() {
     setIsPopupOpen(true);
   };
 
+
   const closePopup = () => {
     setIsPopupOpen(false);
     setEditingReview(null);
     setFormData({ title: '', content: '', rating: 0, image: '' });
   };
+
 
   const handleSubmit = () => {
     if (!formData.title || !formData.content || formData.rating === 0) return;
@@ -92,17 +95,20 @@ function App() {
     closePopup();
   };
 
+
   const handleDelete = (id) => {
     if (window.confirm('정말 이 리뷰를 삭제하시겠습니까?')) {
       setReviews(reviews.filter(r => r.id !== id));
     }
   };
 
+
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="app">
       <Header onCreateClick={openCreatePopup} />
 
-      <main className="max-w-6xl mx-auto px-4 py-8">
+      <main className="app-main">
         <ReviewList
           reviews={reviews}
           onEdit={openEditPopup}
@@ -121,36 +127,6 @@ function App() {
       />
     </div>
   );
-
-  // const openCreatePopup = () => {
-  //   setEditingReview(null);
-  //   setFormData({ title: '', content: '', rating: 0, image: '' });
-  //   setIsPopupOpen(true);
-  // };
-
-  // return (
-  //   <div className="App">
-  //     <Header onCreateClick={openCreatePopup} />
-
-  //     <main className="max-w-6xl mx-auto px-4 py-8">
-  //       <ReviewLists
-  //         reviews={reviews}
-  //         onEdit={openEditPopup}
-  //         onDelete={handleDelete}
-  //         onCreateClick={openCreatePopup}
-  //       />
-  //     </main>
-
-  //     <WriteReview
-  //       isOpen={isPopupOpen}
-  //       onClose={closePopup}
-  //       formData={formData}
-  //       setFormData={setFormData}
-  //       onSubmit={handleSubmit}
-  //       editingReview={editingReview}
-  //     />
-  //   </div>
-  // );
 }
 
 export default App;
