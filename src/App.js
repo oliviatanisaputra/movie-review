@@ -1,5 +1,9 @@
 import Header from './components/Header.js';
+import ReviewList from './components/ReviewList.js';
+import ReviewListItem from './components/ReviewListItem.js';
+import StarRating from './components/StarRating.js';
 import WriteReview from './components/WriteReview.js';
+import { useState } from 'react';
 import './App.css';
 
 const mockReviews = [
@@ -29,23 +33,77 @@ const mockReviews = [
     genre: ['로맨스', '드라마'],
     image: 'https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=400&h=300&fit=crop',
     date: new Date().getTime()
-  };
+  },
 ];
 
 function App() {
-    
+  const [reviews, setReviews] = useState(mockReviews);
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [editingReview, setEditingReview] = useState(null);
+  const [formData, setFormData] = useState({
+    title: '',
+    content: '',
+    rating: 0,
+    image: ''
+  });
+
   const openCreatePopup = () => {
     setEditingReview(null);
     setFormData({ title: '', content: '', rating: 0, image: '' });
     setIsPopupOpen(true);
   };
 
+  const openEditPopup = (review) => {
+    setEditingReview(review);
+    setFormData({
+      title: review.title,
+      content: review.content,
+      rating: review.rating,
+      image: review.image
+    });
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+    setEditingReview(null);
+    setFormData({ title: '', content: '', rating: 0, image: '' });
+  };
+
+  const handleSubmit = () => {
+    if (!formData.title || !formData.content || formData.rating === 0) return;
+    
+    if (editingReview) {
+      setReviews(reviews.map(r => 
+        r.id === editingReview.id 
+          ? { ...r, ...formData }
+          : r
+      ));
+    } else {
+      const newReview = {
+        id: Date.now(),
+        ...formData,
+        date: new Date().toISOString().split('T')[0]
+      };
+      setReviews([newReview, ...reviews]);
+    }
+    
+    closePopup();
+  };
+
+  const handleDelete = (id) => {
+    if (window.confirm('정말 이 리뷰를 삭제하시겠습니까?')) {
+      setReviews(reviews.filter(r => r.id !== id));
+    }
+  };
+
   return (
-    <div className="App">
+    <div className="min-h-screen bg-gray-50">
       <Header onCreateClick={openCreatePopup} />
 
       <main className="max-w-6xl mx-auto px-4 py-8">
-        <ReviewLists
+        <ReviewList
           reviews={reviews}
           onEdit={openEditPopup}
           onDelete={handleDelete}
@@ -63,6 +121,36 @@ function App() {
       />
     </div>
   );
+
+  // const openCreatePopup = () => {
+  //   setEditingReview(null);
+  //   setFormData({ title: '', content: '', rating: 0, image: '' });
+  //   setIsPopupOpen(true);
+  // };
+
+  // return (
+  //   <div className="App">
+  //     <Header onCreateClick={openCreatePopup} />
+
+  //     <main className="max-w-6xl mx-auto px-4 py-8">
+  //       <ReviewLists
+  //         reviews={reviews}
+  //         onEdit={openEditPopup}
+  //         onDelete={handleDelete}
+  //         onCreateClick={openCreatePopup}
+  //       />
+  //     </main>
+
+  //     <WriteReview
+  //       isOpen={isPopupOpen}
+  //       onClose={closePopup}
+  //       formData={formData}
+  //       setFormData={setFormData}
+  //       onSubmit={handleSubmit}
+  //       editingReview={editingReview}
+  //     />
+  //   </div>
+  // );
 }
 
 export default App;

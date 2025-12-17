@@ -1,5 +1,5 @@
 
-const Header = ({ openCreatePopup }) => {
+const Header = ({ onCreateClick }) => {
   return (
     <header>
         <div className="title">
