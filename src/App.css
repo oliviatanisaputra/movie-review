@@ -23,7 +23,7 @@ body {
 
 /* Header */
 header .title {
-  m
+  margin: 5%;
 }
 
 header .writebutton {
