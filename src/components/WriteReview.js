@@ -2,23 +2,30 @@ import StarRating from './StarRating';
 import { useState } from 'react';
 import { X } from 'lucide-react';
 
+
+// 리뷰 작성 및 수정 팝업을 담당하는 컴포넌트
 function WriteReview({ isOpen, onClose, formData, setFormData, onSubmit, editingReview }) {
     const [imagePreview, setImagePreview] = useState(formData.image || '');
+    // 업로드되거나 입력된 이미지의 미리보기를 관리하는 상태
 
+    
+    // 로컬 이미지 파일을 업로드하고 미리보기를 생성하는 함수
     const handleImageUpload = (e) => {
-    const file = e.target.files[0];
+        const file = e.target.files[0];
 
-    if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-        const base64String = reader.result;
-        setFormData({ ...formData, image: base64String });
-        setImagePreview(base64String);
-        };
-        reader.readAsDataURL(file);
-    }
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+            const base64String = reader.result;
+            setFormData({ ...formData, image: base64String });
+            setImagePreview(base64String);
+            };
+            reader.readAsDataURL(file);
+        }
     };
 
+
+    // 이미지 URL 입력 시 미리보기를 업데이트하는 함수
     const handleImageURLChange = (e) => {
     const url = e.target.value;
     setFormData({ ...formData, image: url });
@@ -26,9 +33,11 @@ function WriteReview({ isOpen, onClose, formData, setFormData, onSubmit, editing
     };
 
 
+    // 닫기 버튼에 사용할 아이콘 컴포넌트
     const CloseIcon = () => <X className="close-icon" />;
 
 
+    // 팝업이 열려 있지 않으면 아무것도 렌더링하지 않음
     if (!isOpen) return null;
 
     return (

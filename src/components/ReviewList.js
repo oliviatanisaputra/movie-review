@@ -1,6 +1,9 @@
 import ReviewListItem from "./ReviewListItem.js";
 
+
+// 리뷰 목록 전체를 표시하는 컴포넌트
 function ReviewList({ reviews, onEdit, onDelete, onCreateClick }) {
+  // 리뷰가 하나도 없을 때 보여줄 화면
   if (reviews.length === 0) {
     return (
       <div className="empty-state">

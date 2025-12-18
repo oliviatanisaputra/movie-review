@@ -1,8 +1,20 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #8B0000;
+  color: #F5F5F5;
+}
 /* App background */
 .app {
   min-height: 100vh;
   margin: 5%;
-  background-color: #f9fafb;
+  padding: 5%;
+  border-radius: 1rem;
+  box-shadow: 0 0 15px #F5F5F5;
+  background-color: #1E1E1E;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Main content container */
@@ -10,30 +22,36 @@
   max-width: 72rem;
   margin: 0 auto;
   padding: 2rem 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
-/* Optional: smooth font & layout polish */
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  color: #111827;
-}
 
 
 
 /* Header */
-header .title {
-  margin: 5%;
+header {
+  margin-bottom: 15vh;
+}
+.title h1 {
+  margin: 0;
+}
+
+header div {
+  /* width: 20%; */
+  justify-self: center;
 }
 
 header .writebutton {
+  margin-top: 15vh;
+  padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: #2563eb;
-  color: #ffffff;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
+  background-color: #C9A24D;
+  color: #1E1E1E;
+  border-radius: 1rem;
   font-size: 0.95rem;
   font-weight: 500;
   border: none;
@@ -42,7 +60,7 @@ header .writebutton {
 }
 
 .writebutton:hover {
-  background-color: #1d4ed8;
+  background-color: #8B0000;
 }
 
 
@@ -75,8 +93,15 @@ header .writebutton {
 
 /* Review grid */
 .review-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  /* grid-template-columns: 1fr; */
   gap: 1.5rem;
 }
 
@@ -91,20 +116,25 @@ header .writebutton {
 
 /* ReviewListItem */
 .review-card {
-  background: #ffffff;
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  max-width: 90%;
+  /* margin: 1rem; */
+  background: #F5F5F5;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px #F5F5F5;
   overflow: hidden;
   transition: box-shadow 0.2s ease;
-}
+  align-self: center;
+  justify-self: center;
 
+  display: flex;
+}
 .review-card:hover {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 15px #F5F5F5;
 }
 
 .review-image {
-  width: 100%;
-  height: 12rem;
+  height: 100%;
+  width: 14rem;
   object-fit: cover;
 }
 
@@ -219,6 +249,7 @@ header .writebutton {
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   padding: 1rem;
@@ -227,19 +258,20 @@ header .writebutton {
 
 /* Modal */
 .modal {
-  background: #ffffff;
+  background: #111827;
   width: 100%;
   max-width: 42rem;
   max-height: 90vh;
   overflow-y: auto;
   border-radius: 0.75rem;
+  color: #F5F5F5;
 }
 
 /* Header */
 .modal-header {
   position: sticky;
   top: 0;
-  background: #ffffff;
+  background: #8B0000;
   border-bottom: 1px solid #e5e7eb;
   padding: 1rem 1.5rem;
   display: flex;
@@ -250,20 +282,18 @@ header .writebutton {
 .modal-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #111827;
+  /* color: #111827; */
 }
 
 .close-button {
   background: none;
   border: none;
-  color: #6b7280;
+  color: #F5F5F5;
   cursor: pointer;
 }
-
 .close-button:hover {
-  color: #374151;
+  color: #ffffff;
 }
-
 .close-icon {
   width: 24px;
   height: 24px;
@@ -272,17 +302,21 @@ header .writebutton {
 /* Body */
 .modal-body {
   padding: 1.5rem;
+  background-color: #1E1E1E;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  gap: 0.75rem;
 }
-
 .form-group {
   margin-bottom: 1.25rem;
 }
-
 .form-label {
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #374151;
+  color: #F5F5F5;
   margin-bottom: 0.5rem;
 }
 
@@ -290,17 +324,17 @@ header .writebutton {
 .form-input,
 .form-textarea {
   width: 100%;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid #d1d5db;
+  margin: auto;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  border: 1px solid #C9A24D;
   font-size: 0.95rem;
 }
-
 .form-input:focus,
 .form-textarea:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+  border-color: #C9A24D;
+  box-shadow: 0 0 0 2px #C9A24D;
 }
 
 /* File input */
@@ -309,13 +343,21 @@ header .writebutton {
   flex-direction: column;
   gap: 0.75rem;
 }
-
 .file-input {
+  width: 100%;
   padding: 0.5rem;
-  border-radius: 0.5rem;
-  border: 1px solid #d1d5db;
+  border-radius: 1rem;
+  border: 1px solid #C9A24D;
 }
-
+/* .file-input {
+  padding: 0.75rem;
+  border-radius: 1rem;
+  border: 2px dashed #C9A24D;
+  background: #2a2a2a;
+  color: #F5F5F5;
+  cursor: pointer;
+  transition: all 0.2s ease;
+} */
 .file-hint {
   font-size: 0.875rem;
   color: #6b7280;
@@ -327,7 +369,7 @@ header .writebutton {
   width: 100%;
   height: 12rem;
   object-fit: cover;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
 }
 
 /* Actions */
@@ -339,17 +381,17 @@ header .writebutton {
 
 .primary-button {
   flex: 1;
-  background: #2563eb;
-  color: #ffffff;
+  background: #C9A24D;
+  /* color: #ffffff; */
   padding: 0.75rem;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   font-weight: 500;
   border: none;
   cursor: pointer;
 }
 
 .primary-button:hover {
-  background: #1d4ed8;
+  background: #C9A24D;
 }
 
 .primary-button:disabled {
@@ -362,12 +404,12 @@ header .writebutton {
   background: #e5e7eb;
   color: #374151;
   padding: 0.75rem;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   font-weight: 500;
   border: none;
   cursor: pointer;
 }
 
 .secondary-button:hover {
-  background: #d1d5db;
+  background: #C9A24D;
 }

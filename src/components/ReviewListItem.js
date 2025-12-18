@@ -1,6 +1,8 @@
 import StarRating from './StarRating';
 import { Edit2, Trash2 } from 'lucide-react';
 
+
+// 개별 리뷰 카드 하나를 표시하는 컴포넌트
 function ReviewListItem({ review, onEdit, onDelete }) {
   return (
     <div className="review-card">
@@ -14,7 +16,7 @@ function ReviewListItem({ review, onEdit, onDelete }) {
 
       <div className="review-content">
         <div className="review-header">
-          <h2 className="review-title">{review.title}</h2>
+          <h3 className="review-title">{review.title}</h3>
           <div className="review-actions">
             <button onClick={() => onEdit(review)} className="edit-button">
               <Edit2 className="icon" />
@@ -31,7 +33,7 @@ function ReviewListItem({ review, onEdit, onDelete }) {
         
         <p className="review-text">{review.content}</p>
         
-        <p className="review-date">{review.date}</p>
+        <p className="review-date">{new Date(review.date).toLocaleDateString()}</p>
       </div>
     </div>
   );
