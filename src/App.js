@@ -71,12 +71,14 @@ function App() {
   });
   // 리뷰 작성/수정 폼에 입력되는 데이터
 
+
   // 새 리뷰 작성을 위한 팝업을 여는 함수
   const openCreatePopup = () => {
     setEditingReview(null);
     setFormData({ title: '', content: '', rating: 0, image: '' });
     setIsPopupOpen(true);
   };
+
 
   // 기존 리뷰를 수정하기 위한 팝업을 여는 함수
   const openEditPopup = (review) => {
@@ -90,12 +92,14 @@ function App() {
     setIsPopupOpen(true);
   };
 
+
   // 리뷰 작성/수정 팝업을 닫고 상태를 초기화하는 함수
   const closePopup = () => {
     setIsPopupOpen(false);
     setEditingReview(null);
     setFormData({ title: '', content: '', rating: 0, image: '' });
   };
+
 
   // 리뷰를 추가하거나 수정하여 저장하는 함수
   const handleSubmit = () => {
@@ -119,6 +123,7 @@ function App() {
     closePopup();
   };
 
+
   // 선택한 리뷰를 목록에서 삭제하는 함수
   const handleDelete = (id) => {
     if (window.confirm('정말 이 리뷰를 삭제하시겠습니까?')) {
@@ -126,15 +131,47 @@ function App() {
     }
   };
 
+  // 검색 기능
+  const [search, setSearch] = useState("");
+  // search: 사용자가 입력한 검색어 상태 저장
+  // setSearch: search 값을 갱신하는 함수
+
+  // 검색어 입력 시 search 상태 업데이트:
+  const onChangeSearch = (e) => {
+      setSearch(e.target.value);
+      // 사용자가 입력한 값으로 search 갱신
+  };
+
+  // 검색어에 따라 필터링된 할 일 목록 반환:
+  const getSearchResult = () => {
+      if (search === "") {
+      return reviews;
+    }
+    
+    const searchLower = search.toLowerCase();
+    return reviews.filter((review) =>
+      review.title.toLowerCase().includes(searchLower) ||
+      review.content.toLowerCase().includes(searchLower)
+    );
+  };
 
 
   return (
     <div className="app">
       <Header onCreateClick={openCreatePopup} />
 
+      <div>
+        <input
+          value={search}
+          onChange={onChangeSearch}
+          className="searchbar"
+          placeholder="영화 제목을 입력하세요"
+        />
+      </div>
+
       <main className="app-main">
         <ReviewList
-          reviews={reviews}
+          reviews={getSearchResult()}
           onEdit={openEditPopup}
           onDelete={handleDelete}
           onCreateClick={openCreatePopup}
